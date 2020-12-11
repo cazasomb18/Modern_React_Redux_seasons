@@ -1,14 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import SeasonDisplay from './SeasonDisplay';
+import Spinner from './Spinner';
 
 class App extends React.Component {
-	// constructor(props) {
-	// 	super(props);
-
-	// 	this.state = {lat: null, errorMessage: ''};
-
-	// }
 
 	state = {lat: null, errorMessage: ''};
 
@@ -25,20 +20,34 @@ class App extends React.Component {
 
 	componentDidUpdate(){
 
-		console.log('my component was just updated - it RERENDERED!');
+
+
 
 	}
 
-	render() {
+	renderContent(){
+		
 		if (this.state.errorMessage && !this.state.lat) {
 			return <div>Error: {this.state.errorMessage}</div>
 		}
 
 		if (!this.state.errorMessage && this.state.lat) {
-			return <div><SeasonDisplay lat={this.state.lat}/></div>
-		}
+			return(
+				<div>
+					<SeasonDisplay lat={this.state.lat}/>
+				</div>
+			);
+		};
 
-		return <div>Loading...</div>
+		return <Spinner message={"Please Accept Location Request"} />
+	};
+
+	render() {
+		return (
+			<div>
+				{this.renderContent()}
+			</div>
+		);
 	};
 };
 
